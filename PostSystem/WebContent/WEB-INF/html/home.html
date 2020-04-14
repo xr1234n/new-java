@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8">
+	<title>首页-高校信息类专业就业岗位与培养计划查询系统</title>
+	<!-- 导入Bootstrap与JQ -->
+	<link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- 导入Rotate -->
+	<script src="js/tool/jQueryRotate.js"></script>
+	<!-- 导入自己的css与js -->
+	<script type="text/javascript" src="js/homeJs.js"></script>
+	<script type="text/javascript" src="js/codeJs.js"></script>
+	<link rel="stylesheet" href="css/homeCss.css">
+</head>
+
+<body>
+	<div class="jumbotron">
+		<!-- 顶部导航 -->
+		<div class="row">
+			<div class="col-md-3 col-md-offset-9">
+				<!-- nav : 导航栏  nav-pills : 胶囊样式 -->
+				<ul class="nav nav-pills">
+					<!-- active : 按钮被点击样式 -->
+					<li class="active"><a>首页</a></li>
+					<!-- data-toggle="modal" : 设置为模态框控制器  data-target : 设置控制模态框 -->
+					<li><a data-toggle="modal" data-target="#myModal">帮助</a></li>
+					<li><a href="download">下载说明</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="container text-center">
+
+			<!-- 搜索框 -->
+			<h1 id="myColor">POST SYSTEM</h1>
+			<h3>目标 努力 坚持</h3>
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<!-- 警告框 -->
+					<div class="alert alert-warning">无相关结果，您可以点击首页的“下载说明”下载文件查看专业名称。</div>
+					<!-- 输入框 -->
+					<!-- input-group : 输入框组(为输入框添加前缀或后缀 , 必须结合span使用) -->
+					<div class="input-group input-group-lg">
+						<!-- maxlength : 最大输入长度  placeholder : 提示信息 -->
+						<input id="myForm" type="text" maxlength="20" class="form-control" placeholder="请输入您感兴趣的专业">
+						<!-- input-group-btn : 设置按钮为前缀或后缀 -->
+						<span class="input-group-btn">
+							<!-- type必须设置button,默认为submit会提交表单刷新页面 -->
+							<button id="myButton" class="btn btn-default" type="button">Go!</button>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 底部提问 -->
+	<div class="container-fluid text-center">
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4">
+				<h2>
+					您 好 , 请 问 此 系 统 对 您 有 帮 助 吗?<br>
+					<!-- small : 副标题 -->
+					<small>Hello, does this system help you?</small>
+				</h2>
+			</div>
+		</div>
+		<p>
+			<!-- btn-lg : 按钮大号样式 -->
+			<button type="button" class="btn-lg btn-success myButton">Yes</button>
+			<button type="button" class="btn-lg btn-danger myButton myOpinion" data-toggle="modal"
+				data-target="#myOpinion">No!</button>
+		</p>
+	</div>
+
+	<!-- 帮助 -->
+	<!-- modal : 设置为模态框 fade : 添加淡入淡出效果  aria-labelledby : 标题id  aria-hidden : 起始不可见 -->
+	<div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<!-- 关闭按钮 -->
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<!-- 标题 -->
+					<h4 class="modal-title" id="myModalLabel">
+						常见问题解答
+					</h4>
+				</div>
+				<div class="modal-body">
+					<p>Q:此系统能干什么？</p>
+					<p>A:通过此系统，您能查看IT专业的就业方向与学校相关课程，帮助您更好的确立学习目标。</p><br>
+					<p>Q:我不知道IT专业具体有那些？</p>
+					<p>A:请点击首页的"下载说明"按钮下载文件即可查看所有IT专业。</p><br>
+					<p>Q:为什么一直提示没有搜索结果？</p>
+					<p>A:出现这种情况应该是输入关键字不对,请点击"下载说明"按钮下载文件查看可查询专业。</p><br>
+					<p>Q:为什么下载的文件大小为0b？</p>
+					<p>A:请关闭下载工具，尝试使用浏览器下载。</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 意见提交 -->
+	<div class="modal fade" id="myOpinion" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<!-- 关闭按钮 -->
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<!-- 标题 -->
+					<h4 class="modal-title" id="myModalLabel2"><strong>对于此系统的意见</strong></h4>
+				</div>
+				<div class="modal-body">
+					<!-- alert-danger ：红色警告框 -->
+					<div class="alert alert-danger myAlert1">内容不符合规范。</div>
+					<!-- 文本域 row: 可见行数   maxlength: 最大字数 -->
+					<textarea class="myTextarea" rows="6" maxlength="200" placeholder="请将您的意见填写在此处(10字以上200字以内)"></textarea>
+					<div class="text-right">
+						<button type="button" class="btn btn-primary myBtn2">提交</button>
+					</div>
+					<div class="alert alert-danger myAlert2">人机验证未通过。</div>
+					<p><strong>人机验证 : </strong>请将图片旋转至正常方向</p>
+					<div class="row text-center">
+						<div class="col-xs-3"><button type="button" class="btn btn-info inverse">逆时针旋转</button></div>
+						<div class="col-xs-6"><img class="myTestImg"></div>
+						<div class="col-xs-3"><button type="button" class="btn btn-info along">顺时针旋转</button></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

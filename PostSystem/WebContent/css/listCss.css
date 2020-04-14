@@ -1,0 +1,106 @@
+#white {
+    color: white;
+}
+
+.myBack {
+    background-image: url("../img/back2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.jumbotron {
+    margin-bottom: 0;
+    padding-top: 10px;
+}
+
+.myFont {
+    font-size: 20px;
+}
+
+.myFont2 {
+    font-size: 17px;
+}
+
+.list-inline {
+    margin: 0;
+}
+
+.list-inline h4 {
+    margin: 0;
+}
+
+.myUl {
+    margin: 15px;
+}
+
+.myUl li {
+    margin-right: 5px;
+}
+
+h4 {
+	/* 设置为行内块元素，避免文字超出边框 */
+	display: inline-block;
+	margin-left: 10px;
+	height: 55px;
+    line-height: 55px;
+}
+
+/* 重置Bootstrap网格系统默认设置  */
+.col-md-1,.col-md-11 {
+	padding: 0;
+}
+
+.myJumbotron {
+    padding-bottom: 0;
+}
+
+.myContainer {
+    margin-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 1px solid #ededed;
+    background-color: #fafafa;
+}
+
+.myContainer2 {
+	height: 360px;
+    margin-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 1px solid #ededed;
+}
+
+.myMouse a {
+	/* 修改鼠标状态：为手 */
+    cursor: pointer;
+    /* 取消下划线 */
+    text-decoration: none;
+}
+
+.panel {
+	display: none;
+	/* 堆叠优先级 */
+	z-index: 1;
+    /* 绝对定位: 根据最近以定位元素,无则根据body定位,删除自身文档流 */
+    position: absolute;
+    /* 定位的left(right)等指的是靠左(右)距离多少,值可为负 */
+    top: 103px;
+    left: 0;
+    right: 20px;
+}
+
+.panel-body {
+	padding: 0;
+}
+
+.glyphicon {
+    margin-left: 5px;
+}
+
+.btn-default {
+	/* 相对定位：根据初始位置,保留自身文档流 */
+	position: relative;
+	padding-left: 8px;
+	padding-right: 8px;
+	height: 44px;
+}

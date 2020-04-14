@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wwx.dao.ListSql">
+
+	<!-- 查询专业与可就业城市 -->
+	<select id="findPrCi" parameterType="Integer" resultMap="prCiMap">
+		select distinct c.*,d.prId,d.prName,d.manual
+		
+		from profession_post a,city_post b,city c,profession d
+		
+		where a.prId=d.prId and a.poId=b.poId and a.prId=#{prId}
+	</select>
+	<resultMap type="profession" id="prCiMap">
+		<id property="prId" column="prId" />
+		<result property="prName" column="prName" />
+		<result property="manual" column="manual" />
+		<!-- 一对多关联映射 -->
+		<collection property="ciList" ofType="city">
+			<id property="cId" column="cId" />
+			<result property="cName" column="cName" />
+		</collection>
+	</resultMap>
+
+	<!-- 统计记录数 (group by分组后统计的是每组的记录数,而不是总记录数) -->
+	<select id="findpoCount" resultType="Integer">
+		<!-- 此处的岗位是整合后的岗位,所以只需知道有几个岗位即可 -->
+		select count(distinct a.poId)
+
+		from profession_post a,city_post b,city c,keyword_post d,keyword e
+		
+		where a.poId=b.poId and c.cId=b.cId and d.kId=e.kId 
+			and d.poId=b.poId and prId=#{prId}
+		<if test='cName != null and cName != "全国" and cName !="" '>
+			and cName=#{cName}
+		</if>
+		<if test=" keywords != null and keywords !='' ">
+			and kName like concat('%',#{keywords},'%')
+		</if>
+	</select>
+
+	<!-- 查询岗位 -->
+	<select id="findPrPo" resultMap="prpoMap">
+		select a.poId,avg(poWage) as poWage,sum(poNumber) as poNumber,poName
+			
+		from city_post a,post b,profession_post c,city d
+		
+		where a.poId=b.poId and c.poId=a.poId and d.cId=a.cId and prId=#{prId}
+		<if test='cName != null and cName != "全国"  and cName != "" '>
+			and cName=#{cName}
+		</if>
+		<if test=" keywords != null and keywords !='' ">
+		<!-- 
+			此处不能使用“keyword_post”表进行多表连接,当只限制了prId时多表连接查询,
+			会显示所有连接表的所有数据,由于“keyword_post”有多个poId重复且独立,会影响sum()函数计算
+		-->
+			and a.poId in (
+				select poId
+				from keyword a,keyword_post b     <!-- concat拼接字符串 -->
+				where a.kId=b.kId and kName like concat('%',#{keywords},'%')
+			)
+		</if>
+		<!-- 分组 -->
+		group by a.poId
+		<choose>
+			<!-- 当前判断为假,才运行后续判断 -->
+			<when test='sort != null and sort=="根据工资高低" and sort!="" '>
+				order by poWage desc <!-- 降序 -->
+			</when>
+			<when test='sort != null and sort=="根据岗位热度" and sort!="" '>
+				order by poNumber desc
+			</when>
+		</choose>
+		<!-- limit 限制读取：第一个参数为偏移量，第二个参数为最大读取数 -->
+		limit #{pageCurrent},#{pageSize}
+	</select>
+	<resultMap type="post" id="prpoMap">
+		<id property="poId" column="poId"/>
+		<result property="poWage" column="poWage" />
+		<result property="poNumber" column="poNumber" />
+		<result property="poName" column="poName" />
+	</resultMap>
+	
+	<!-- 搜索推荐 -->
+	<select id="findRecommend" parameterType="Integer" resultType="String">
+		<!-- 关键字被多个岗位对应时会出现重复列 -->
+		select distinct kName
+		from keyword a,keyword_post b,profession_post c
+		where prId=#{prId} and b.poId=c.poId and a.kId=b.kId
+		<!-- 根据搜索次数排序 -->
+		order by frequency desc	
+		<!-- 只读取前5条 -->
+		limit 5
+	</select>
+	
+	<!-- 增加关键字搜索热度 -->
+	<update id="addKeyword" parameterType="String">
+		update keyword set frequency=frequency+1
+		where kName like concat('%',#{keywords},'%') 
+	</update>
+</mapper>

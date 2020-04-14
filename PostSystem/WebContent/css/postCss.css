@@ -1,0 +1,190 @@
+.myNav {
+    /* vh : 窗口可视高度百分比 */
+    height: 100vh;
+    /* 固定定位,根据窗口,删除文档流 */
+    position: fixed;
+    left: 0;
+    text-align: left;
+    background-color: white;
+    /* 堆叠 */
+    z-index: 10;
+}
+
+.navbar {
+	height: 64px;
+    z-index: 5;
+}
+
+.navbar-header {
+	margin-left: 239px;
+}
+
+.btn-lg {
+    margin-top: 9px;
+    margin-left: 10px;
+}
+
+/* 横杠图标的class */
+.glyphicon-align-justify {
+	margin: 0;
+}
+
+/* 箭头图标的class */
+.glyphicon-chevron-right {
+    margin: 0;
+    float: right;
+}
+
+.myP {
+    /* 如果正外边距 , 是向外部扩大 */
+    /* 那么负外边距 , 就是向内部收缩 */
+    /* 这些操作不会改变元素边框宽高,而是改变的元素占用空间 */
+    text-align: center;
+    font-size: 24px;
+    padding: 15px;
+    background-color: #346cb0;
+    color: white;
+    margin: 0 0 20px; /* 上，左右，下 */
+}
+
+.myFont li {
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 20px;
+}
+
+.myFont,.myP,.myImg,.myNav {
+    width:239px;
+}
+
+span {
+    margin-right: 20px;
+}
+
+h1 {
+    margin-left: 20px;
+    margin-bottom: 40px;
+}
+
+.myCanvas {
+    padding: 5px;
+    /* 添加阴影 , 阴影离左距离 , 阴影离顶距离 , 模糊度 ，阴影边框粗细 , 颜色 (这里添加了2个阴影),rgba最后一位是透明度0-1之间 */
+    box-shadow: 0 0 0 1px rgba(20, 20, 31, .05), 0 1px 3px 0 rgba(20, 20, 31, .15);
+    background-color: white;
+}
+
+p {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.myDiv {
+    background-color: #f6f7f9;
+    margin-top: 52px;
+    margin-left: 239px;
+    padding: 30px;
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+small a {
+	margin-right: 20px;
+}
+
+.panel {
+    margin-top: 40px;
+    margin-bottom: 0;
+}
+
+.myBody {
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.myImg {
+    z-index: -1; /* 设置在文字下方(需配合定位) */
+    /* 绝对定位，根据以定位父级元素定位 */
+	position: absolute;
+	bottom: 0;
+}
+
+textarea {
+    width: 100%;
+}
+
+.col-xs-3 {
+    margin-top: 25%;
+}
+
+.myTestImg {
+    /* 相对定位 */
+    position: relative;
+    width: 100%;
+}
+
+.alert {
+    display: none;
+    margin-bottom: 0;
+}
+
+/* Bootstrap中默认情况下，对超链接伪类设置了下划线 */
+a:hover,a:focus {
+    /* hover：移动到元素上 focus：获得焦点 */
+    text-decoration: none; /* 取消下划线 */
+}
+
+.myBody {
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.myInput {
+    width: 110px;
+    margin-bottom: 10px;
+}
+
+.count,.countError {
+    margin-right: 0;
+}
+
+.myBack {
+    padding-left: 5%;
+    padding-right: 5%;
+    background-color: white;
+}
+
+.media {
+    padding-top: 10px;
+    border-bottom: 1px solid #337ab7;
+}
+
+.myPanel {
+    height: 400px;
+    /* 隐藏溢出 */
+    overflow: hidden;
+    /* 相对定位 */
+    position: relative;
+}
+
+.myHide {
+    /* 绝对定位 */
+    position: absolute;
+    top: 200px;
+    width: 100%;
+    padding-top: 150px;
+    padding-bottom: 10px;
+    /* linear-gradient : 渐变背景，默认水平渐变。 rgba(255,255,255,0) 透明 ，0% 起始位置 */
+    background-image: linear-gradient(rgba(255,255,255,0) 0%,#fff 70%);
+}
+
+.myHide p {
+    /* 修改鼠标状态：为手 */
+    cursor: pointer;
+}
+
+.glyphicon-chevron-down {
+    margin-left: 5px;
+    color: #337ab7;
+}

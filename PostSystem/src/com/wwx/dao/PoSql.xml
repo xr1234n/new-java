@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wwx.dao.PoSql">
+	<select id="findPo" parameterType="Integer" resultType="String">
+		select poName
+		from post
+		where poId=#{poId}
+	</select>
+
+	<!-- 岗位信息与图表数据 -->
+	<select id="findPoCi" parameterType="Integer" resultMap="poCiMap">
+		select cName,poWage,poNumber,poName
+		from city a,city_post b,post c
+		where a.cId=b.cId and c.poId=b.poId and c.poId=#{poId}
+	</select>
+	<resultMap type="post" id="poCiMap">
+		<result property="poName" column="poName" />
+		<collection property="ciList" ofType="city">
+			<result property="cName" column="cName" />
+			<result property="ciWage" column="poWage" />
+			<result property="ciNumber" column="poNumber" />
+		</collection>
+	</resultMap>
+
+	<!-- 此岗位总数 -->
+	<select id="findThis" parameterType="Integer" resultType="Integer">
+		select sum(poNumber)
+		from city_post
+		where poId=#{poId}
+	</select>
+
+	<!-- 其它岗位总数 -->
+	<select id="findOther" resultType="Integer">
+		select sum(post.poNumber)
+		<!-- 进行除重 -->
+		from (
+			select distinct a.id,poNumber
+			from city_post a,profession_post b,profession c
+			where c.prId=b.prId and a.poId=b.poId and a.poId!=#{id}
+			<if test="list!=null and list.size()>0">
+				and prName in
+				<!-- 迭代元素，下标，迭代集合 -->
+				<foreach item="name" index="index" collection="list" open="(" separator="," close=")">
+					#{name.prName}
+				</foreach>
+			</if>
+		) as post
+	</select>
+
+	<!-- 整体平均工资 -->
+	<select id="findWage" parameterType="Integer" resultType="Integer">
+		select avg(poWage)
+		from city_post
+		where poId=#{poId}
+	</select>
+
+	<!-- 岗位对应专业 -->
+	<select id="findPr" parameterType="Integer" resultMap="prMap">
+		select prName,a.prId
+		from profession a,profession_post b
+		where a.prId=b.prId
+		and poId=#{poId}
+	</select>
+	<resultMap type="profession" id="prMap">
+		<id property="prId" column="prId" />
+		<result property="poName" column="poName" />
+	</resultMap>
+	
+	<!-- 岗位对应课程 -->
+	<select id="findCourse" parameterType="Integer" resultType="String">
+		select coName
+		from course a,course_post b
+		where a.coId=b.coId and poId=#{poId}
+	</select>
+	
+	<!-- 关联岗位 -->
+	<select id="findRePo" parameterType="Integer" resultType="post">
+		select poName,poId
+		from post,post_related
+		WHERE (poId=poId2 and poId1=#{poId}) or (poId=poId1 and poId2=#{poId})
+		order by related desc
+		limit 1
+	</select>
+	
+	<!-- 是否存在岗位关联 -->
+	<select id="findRelated" parameterType="Integer" resultType="Integer">
+		select id 
+		from post_related
+		where (poId1=#{arg0} and poId2=#{arg1}) or (poId1=#{arg1} and poId2=#{arg0})
+	</select>
+
+	<!-- 查询当天是否提交过经验 -->
+	<select id="findExpSubmit" parameterType="ExperienceAjax" resultType="Integer">
+		select id
+		from experience
+		where date=#{date} and ip=#{ip}
+	</select>
+
+	<!-- 审核通过的经验 -->
+	<select id="findExperience" parameterType="String" resultMap="expMap">
+		select date,text
+		from experience
+		where poName=#{poName} and audit='通过'
+	</select>
+	<resultMap type="experience" id="expMap">
+		<result property="date" column="date" />
+		<result property="text" column="text" />
+	</resultMap>
+
+	<!-- 新增关联 -->
+	<insert id="addRelated" parameterType="Integer">
+		insert into post_related(poId1,poId2,related) 
+		values(#{arg0},#{arg1},1)
+	</insert>
+	
+	<!-- 新增建议 -->
+	<insert id="addOpinion" parameterType="opinionAjax">
+		insert into opinion(type,content)
+		values(#{type},#{content})
+	</insert>
+
+	<!-- 新增经验 -->
+	<insert id="addExperience" parameterType="ExperienceAjax">
+		insert into experience(poName,date,ip,text,audit)
+		values(#{poName},#{date},#{ip},#{text},'待审核')
+	</insert>
+
+	<!-- 增加关联度 -->
+	<update id="upRelated" parameterType="Integer">
+		update post_related set related=related+1
+		where (poId1=#{arg0} and poId2=#{arg1}) or (poId1=#{arg1} and poId2=#{arg0})
+	</update>
+
+</mapper>

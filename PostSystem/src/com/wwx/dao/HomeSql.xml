@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wwx.dao.HomeSql">
+	<select id="findPr1" parameterType="String" resultType="Integer">
+		select prId
+		from profession
+		where prName=#{prName}
+	</select>
+
+	<select id="findPr2" parameterType="Integer" resultType="String">
+		select prName
+		from profession
+		where prId=#{prId}
+	</select>
+</mapper>

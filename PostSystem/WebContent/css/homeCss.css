@@ -1,0 +1,70 @@
+.jumbotron {
+    padding-top: 20px;
+    height: 80vh;
+    background-image: url("../img/back1.jpg");
+    background-repeat: no-repeat;       /* 不平铺 */
+    background-size: cover;             /* 根据元素发大图片 */
+    margin-bottom: 0;
+}
+
+h1 {
+    margin-top: 150px;
+}
+
+h2 {
+    margin-top: 50px;
+    padding: 5px;
+    border-bottom: 3px solid;
+}
+
+h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: white;
+}
+
+#myColor {
+    color: white;
+}
+
+.myButton {
+    margin-top: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+li {
+    font-size: 20px;
+}
+
+.alert-warning {
+	font-weight: bold; /* 粗体 */
+	display: none;
+}
+
+a {
+    /* 修改鼠标状态：为手 */
+    cursor: pointer;
+}
+
+.col-xs-3 {
+    margin-top: 25%;
+}
+
+textarea {
+    width: 100%;
+}
+
+.myTestImg {
+    /* 相对定位 */
+    position: relative;
+    width: 100%;
+}
+
+.col-md-3,.col-md-offset-9 {
+    padding: 0;
+}
+
+.row {
+    margin: 0;
+}

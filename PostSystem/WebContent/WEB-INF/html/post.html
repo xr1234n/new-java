@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>岗位详细-高校信息类专业就业岗位与培养计划查询系统</title>
+    <!-- 导入Bootstrap与JQ -->
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- 导入Chart -->
+    <script src="js/tool/Chart.js"></script>
+    <!-- 导入Rotate -->
+    <script src="js/tool/jQueryRotate.js"></script>
+    <!-- 导入TinyMCE -->
+    <script src="js/tool/tinymce/tinymce.min.js"></script>
+    <!-- 导入搜狐IP地址查询接口 -->
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+    <!-- 自己的js与css -->
+    <script type="text/javascript" src="js/postJs.js"></script>
+    <script type="text/javascript" src="js/codeJs.js"></script>
+    <link rel="stylesheet" href="css/postCss.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <!-- 顶部导航 -->
+        <!-- navbar-fixed-top ： 固定在顶部 -->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="navbar-header">
+                <!-- btn-link : 使按钮看起像超链接 -->
+                <button type="button" class="btn btn-link btn-lg">
+                    <span class="glyphicon glyphicon-align-justify"></span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- 侧边导航 -->
+        <div class="myNav">
+            <p class="myP">POST SYSTEM</p>
+            <!-- nav-stacked : 垂直导航栏 -->
+            <ul class="nav nav-pills nav-stacked myFont">
+                <li><a href="home">
+                    <span class="glyphicon glyphicon-search"></span>返回查询
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a></li>
+                <li><a data-toggle="modal" href="#myExplain">
+                    <span class="glyphicon glyphicon-book"></span>选项说明
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a></li>
+                <li class="myOpinion"><a data-toggle="modal" href="#myOpinion">
+                    <span class="glyphicon glyphicon-envelope"></span>提出意见
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a></li>
+            </ul>
+            <img class="myImg" src="img/back3.png">
+        </div>
+        <!-- 主体内容 -->
+        <div class="container-fluid">
+            <div class="myDiv">
+                <!-- 岗位信息 -->
+                <h1><!-- ajax --></h1>
+
+                <!-- 岗位图表 -->
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="myCanvas">
+                            <p><strong class="wage"><!-- ajax --></strong></p>
+                            <canvas id="myChart2"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="myCanvas">
+                            <p><strong class="proportion"><!-- ajax --></strong></p>
+                            <canvas id="myChart1"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="myCanvas">
+                            <p><strong>各城市岗位数</strong></p>
+                            <canvas id="myChart3"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 岗位知识 -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- panel : 面板  panel-primary : 样式为基本面板 -->
+                        <div class="panel panel-primary myPanel">
+                            <!-- panel-heading : 标题容器 -->
+                            <div class="panel-heading">
+                                <!-- panel-title : 标题样式 -->
+                                <h3 class="panel-title"><strong>相关知识</strong></h3>
+                            </div>
+                            <!-- panel-body : 主体 -->
+                            <div class="panel-body">
+                                <h3><strong>大学校内相关课程</strong></h3>
+                                <div class="myCourse">
+                                    <p class="text-primary"><!-- ajax --></p>
+                                </div>
+
+                                <h3><strong>课外知识点</strong></h3>
+                                <div class="myRecommend">
+                                    <!-- ajax -->
+                                </div>
+                            </div>
+
+                            <div class="myHide text-center">
+                                <p>展开阅读全文<span class="glyphicon glyphicon-chevron-down"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 分享经验 -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <!-- data-toggle="collapse" : 绑定事件，类型为折叠器 -->
+                                    <a data-toggle="collapse" href="#myCollapse" class="myCollapse">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                        <strong>分享经验</strong>
+                                    </a>
+                                </h4>
+                            </div>
+                            <!-- collapse : 隐藏内容 -->
+                            <div id="myCollapse" class="collapse">
+                                <div class="panel-body myBody">
+                                    <textarea id="myTextarea" placeholder="提示: 分享每天只能提交一次，字数在200-2000之间"></textarea>
+                                    <div class="text-right">
+                                        <span class="countError text-danger"><strong>验证码错误！！！</strong></span>
+                                        <span class="count"><!-- js --></span>
+                                        <input class="myInput" type="text" maxlength="3" placeholder="请输入计算结果">
+                                        <button type="button" class="btn btn-primary myBtn1">提交</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 显示经验 -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="myBack">
+                            <!-- ajax -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 选项说明 -->
+                <!-- modal : 设置为模态框 fade : 添加淡入淡出效果  aria-labelledby : 标题id  aria-hidden : 起始不可见 -->
+                <div class="modal fade" id="myExplain" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <!-- 关闭按钮 -->
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <!-- 标题 -->
+                                <h4 class="modal-title" id="myModalLabel">选项说明</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>1、关于“岗位”</p>
+                                <p>您看到的岗位是一个大的就业方向，并不是具体的某一个岗位。如“java工程师”、“c++工程师”都是
+                                    从事于“后端开发”这一方向。
+                                </p><br>
+                                <p>2、关于“课程”</p>
+                                <p>课程数据来源于“重庆科技学院”与“北京邮电大学”的人才培养方案，感谢由两所学校提供的信息。</p><br>
+                                <p>3、关于“课外知识点”与“学习建议”</p>
+                                <p>此部分内容为网站作者亲自整理，若有错误还请点击下方“提出意见”选项进行通知。</p><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 意见提交 -->
+                <div class="modal fade" id="myOpinion" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">>
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <!-- 关闭按钮 -->
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <!-- 标题 -->
+                                <h4 class="modal-title" id="myModalLabel2"><strong>对于此岗位的意见</strong></h4>
+                            </div>
+                            <div class="modal-body">
+                                <!-- alert-danger ：红色警告框 -->
+                                <div class="alert alert-danger myAlert1">内容不符合规范。</div>
+                                <!-- 文本域 row: 可见行数   maxlength: 最大字数 -->
+                                <textarea class="myTextarea" rows="6" maxlength="200" placeholder="请将您的意见填写在此处(10字以上200字以内)"></textarea>
+                                <div class="text-right">
+                                    <button  type="button" class="btn btn-primary myBtn2">提交</button>
+                                </div>
+                                <div class="alert alert-danger myAlert2">人机验证未通过。</div>
+                            	<p><strong>人机验证 : </strong>请将图片旋转至正常方向</p>
+                                <div class="row text-center">
+                                    <div class="col-xs-3"><button type="button" class="btn btn-info inverse">逆时针旋转</button></div>
+                                    <div class="col-xs-6"><img class="myTestImg"></div>
+                                    <div class="col-xs-3"><button type="button" class="btn btn-info along">顺时针旋转</button></div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                            	<!-- 底部默认设置为右对齐，设置div可以改变对齐方式 -->
+                            	<div class="text-left"><p>看过此岗位的人还看过：<a><!-- ajax --></a></p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

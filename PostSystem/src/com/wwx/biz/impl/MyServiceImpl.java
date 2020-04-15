@@ -119,6 +119,8 @@ public class MyServiceImpl implements MyService {
 			Integer proportion = (int)((float)poThis/(float)(poThis+poOther)*100);
 			//添加岗位占比
 			ajax.setProportion(proportion);
+		} else if(poThis!=null) {
+			ajax.setProportion(100); //只有一个岗位的情况
 		}
 		//添加整体平均工资
 		ajax.setPoWage(pSql.findWage(poId));

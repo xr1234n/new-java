@@ -38,7 +38,7 @@ $(document).ready(function () {
 		// 由于使用了===需要注意元素类型的一致
 		if(text2!==String(sum)) {
 			countError.show();             //显示验证码错误提示
-		} else if(text1 === "" && text1.length>=200 && text1.length<=2000){
+		} else if(text1 === "" || text1.length<200 || text1.length>2000){
 			alert("内容不符合规范，请重新修改"); //显示提示
 		} else {
 			text2=tinymce.activeEditor.getContent(); //获取编辑器转换的文本内容

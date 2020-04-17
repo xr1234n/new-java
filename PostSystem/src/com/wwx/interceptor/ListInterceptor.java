@@ -17,7 +17,7 @@ public class ListInterceptor implements HandlerInterceptor {
 
         // isNumeric 判断是否为数字，通过拆分成char数组进行的判断
         // 保证id在int类型的最大值之内-2^31~2^31-1,int在java固定为32位
-        if(id.length()<10 && StringUtils.isNumeric(id)) {
+        if(id!=null && id.length()<10 && StringUtils.isNumeric(id)) {
             return true;
         }
         // 响应重定向到首页
